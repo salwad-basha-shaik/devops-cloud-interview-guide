@@ -114,10 +114,12 @@ kubectl describe pod myapp
 - kube-proxy sees traffic to ClusterIP and rewrites it to a Pod IP (10.244.1.12).
 - Calico ensures Pod-to-Pod networking works across nodes and checks Network Policies before delivering the packet.
 
+```
  👉 Easy analogy:
 	•	CoreDNS = Phonebook 📖 (resolves service names to IPs)
 	•	kube-proxy = Receptionist 👩‍💼 (forwards your call to one of the right employees)
 	•	Calico = Security guard + road system 🚦🔐 (makes sure you’re allowed in and provides the roads for communication)
+```
 ---
 
 ### 🧠 Real-world Insight
