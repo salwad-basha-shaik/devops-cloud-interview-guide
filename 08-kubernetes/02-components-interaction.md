@@ -106,6 +106,18 @@ kubectl describe pod myapp
 | `kube-proxy`     | Sets up network rules |
 | `CoreDNS`        | Resolves internal DNS |
 
+   kube-proxy is about Service → Pod traffic routing (like a built-in load balancer). and it is store the ips for the service everytime the pod restarted.
+	•	CoreDNS → Service discovery via DNS (names instead of IPs)
+	•	Calico → Pod networking + network security policies ( Without Calico (or another CNI), Pods across different nodes cannot talk to each other.) and Ensures every Pod gets a unique IP and can communicate across nodes.
+
+	1.	DNS lookup via CoreDNS → resolves Service name (myapp.svc.cluster.local) → ClusterIP (e.g., 10.96.0.100).
+	2.	kube-proxy sees traffic to ClusterIP and rewrites it to a Pod IP (10.244.1.12).
+	3.	Calico ensures Pod-to-Pod networking works across nodes and checks Network Policies before delivering the packet.
+
+ 👉 Easy analogy:
+	•	CoreDNS = Phonebook 📖 (resolves service names to IPs)
+	•	kube-proxy = Receptionist 👩‍💼 (forwards your call to one of the right employees)
+	•	Calico = Security guard + road system 🚦🔐 (makes sure you’re allowed in and provides the roads for communication)
 ---
 
 ### 🧠 Real-world Insight
@@ -117,3 +129,4 @@ kubectl describe pod myapp
 ### Key takeaway
 
 > "Running `kubectl apply` kicks off a coordinated flow involving the API server, etcd, scheduler, kubelet, and container runtime — all working together to ensure your pod reaches its desired state."
+> 
