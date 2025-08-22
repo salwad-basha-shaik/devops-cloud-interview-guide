@@ -41,21 +41,22 @@ AWS Lambda functions execute with an IAM execution role. To access an S3 bucket 
   - Create an IAM role (e.g., `S3AccessRole`) with the necessary S3 access permissions.
   - Add a trust policy allowing the Lambda's role from Account A to assume this role.
 
+```bash
 // Account B - Trust Policy { “Version”: “2012-10-17”, “Statement”:  { “Effect”: “Allow”, “Principal”: { “AWS”: “arn:aws:iam::<AccountA_ID>:role/LambdaExecutionRole” }, “Action”: “sts:AssumeRole” }  }
-
+```
 
 - **In Account A (Lambda owner):**
   - Modify the Lambda’s IAM execution role or code to assume the `S3AccessRole` in Account B.
 
 ### Example (Python boto3)
 
-
-mport boto3
+```bash
+import boto3
 sts_client = boto3.client(‘sts’)
 assumed_role = sts_client.assume_role( RoleArn=“arn:aws:iam::<AccountB_ID>:role/S3AccessRole”, RoleSessionName=“LambdaCrossAccountSession” )
 s3_client = boto3.client( ‘s3’, aws_access_key_id=assumed_role‘Credentials’‘AccessKeyId’, aws_secret_access_key=assumed_role‘Credentials’‘SecretAccessKey’, aws_session_token=assumed_role‘Credentials’‘SessionToken’ )
 s3_client.get_object(Bucket=“my-crossaccount-bucket”, Key=“file.txt”)
-
+```
 
 ✅ **Best for security:** No need to hardcode bucket policies for external accounts. Access is tightly controlled.
 
