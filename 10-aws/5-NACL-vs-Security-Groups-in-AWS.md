@@ -1,3 +1,5 @@
+# Explain NACL vs SG and which on do you use in your ogranization ?
+
 # NACL vs Security Groups in AWS
 
 ## Question
