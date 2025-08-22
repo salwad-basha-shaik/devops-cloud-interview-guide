@@ -41,7 +41,7 @@ AWS Lambda functions execute with an IAM execution role. To access an S3 bucket 
   - Create an IAM role (e.g., `S3AccessRole`) with the necessary S3 access permissions.
   - Add a trust policy allowing the Lambda's role from Account A to assume this role.
 
-```bash
+```json
 // Account B - Trust Policy { “Version”: “2012-10-17”, “Statement”:  { “Effect”: “Allow”, “Principal”: { “AWS”: “arn:aws:iam::<AccountA_ID>:role/LambdaExecutionRole” }, “Action”: “sts:AssumeRole” }  }
 ```
 
