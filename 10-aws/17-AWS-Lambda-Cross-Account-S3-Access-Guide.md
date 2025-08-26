@@ -78,7 +78,24 @@ Alternatively, the bucket owner can grant direct access to the Lambda execution 
 
 ### Bucket Policy Example (Account B)
 
-{ “Version”: “2012-10-17”, “Statement”: [ { “Effect”: “Allow”, “Principal”: { “AWS”: “arn:aws:iam::<AccountA_ID>:role/LambdaExecutionRole” }, “Action”: “s3:GetObject”, “s3:PutObject”, “Resource”: “arn:aws:s3:::my-crossaccount-bucket/*” } ] }
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<AccountA_ID>:role/LambdaExecutionRole"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::my-crossaccount-bucket/*"
+    }
+  ]
+}
+```
 
 
 ✅ **Simpler to implement.**
