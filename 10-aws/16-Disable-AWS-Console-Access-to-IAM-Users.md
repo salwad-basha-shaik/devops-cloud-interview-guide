@@ -50,7 +50,22 @@ This prevents interactive console login.
 
 Block console-related services with explicit deny policies. Example policy to deny account console sign-in actions:
 
-{ “Version”: “2012-10-17”, “Statement”: [ { “Effect”: “Deny”, “Action”:  “aws-portal:”, “iam:ChangePassword”, “iam:CreateLoginProfile” , “Resource”: “” } ] }
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Action": [
+        "aws-portal:*",
+        "iam:ChangePassword",
+        "iam:CreateLoginProfile"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
 
 
 This prevents users from creating or using a console login profile.
